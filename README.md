@@ -12,46 +12,54 @@ Download the package and place it in the **libraries** folder of your Processing
 
 **Import** the library.
 
-```Java
+```java
 import com.insomnia.controllers.FullScreenController;
 ```
 
 
 Create a **global variable**.
 
-	FullScreenController fullScreenController;
+```java
+FullScreenController fullScreenController;
+```
 
 
 **Initialise** the controller with your applet instance in your init() function and call super().
 
-```Processing
-	void init() {
-	  FullScreenController.init(this);
-	  super.init();
-	}
+```java
+void init() {
+	FullScreenController.init(this);
+	super.init();
+}
 ```
 
 
 **Instantiate** the FullScreenController class with the **applet instance**, the **shortcut key** (used in combination with command on Mac or control on Windows) and the **title bar height**. The last two parameters are optional.
 
-	void setup() {
-		fullScreenController = new FullScreenController(this, 'f', 22);
-	}
+```java
+void setup() {
+	fullScreenController = new FullScreenController(this, 'f', 22);
+}
+```
 
 
 Call **draw** to draw the custom title bar.
 
-	void draw() {
-	  fullScreenController.draw();
-	}
+```java
+void draw() {
+	fullScreenController.draw();
+}
+```
 
 
 ### Using Proscene?
 
 Call **draw** between these Proscene functions to draw the title bar in 2D.
 
+```java
 void draw() {
 	scene.beingScreenDrawing();
 	FullScreenController.draw();
 	scene.endScreenDrawing();
 }
+```
