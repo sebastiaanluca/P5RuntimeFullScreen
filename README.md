@@ -2,8 +2,7 @@ P5RuntimeFullScreen
 ===================
 
 Fullscreen mode for Processing that actually lets you switch (on the fly) between a windowed and a fullscreen sketch. With support for Processing 2 (beta), customisable hotkeys, OpenGL, Proscene, Eclipse, …
-
-
+  
 ## Usage
 
 The most basic example (also, see examples):
@@ -40,7 +39,7 @@ Call **draw** to draw the custom title bar.
 void draw() {
   fullScreenController.draw();
 }
-
+  
 ### Using Proscene?
 
 Call **draw** between these Proscene functions to draw the title bar in 2D.
