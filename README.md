@@ -41,6 +41,11 @@ Call **draw** to draw the custom title bar.
 	}
   
   
+  
+  
+  
+  
+  
 ### Using Proscene?
 
 Call **draw** between these Proscene functions to draw the title bar in 2D.
