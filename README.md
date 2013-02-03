@@ -36,9 +36,10 @@ Create a **global variable**.
 
 Call **draw** to draw the custom title bar.
 
-void draw() {
-  fullScreenController.draw();
-}
+	void draw() {
+	  fullScreenController.draw();
+	}
+  
   
 ### Using Proscene?
 
