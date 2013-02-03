@@ -30,7 +30,10 @@ public class EclipseSimple extends PApplet {
 		rect(0, 0, width, height);
 		popStyle();
 
-		// The only line you actually need for the FullScreenController
+		/*
+		 * The only line you actually need for the FullScreenController in the draw function. Call between "_scene.beginScreenDrawing();" and
+		 * "_scene.endScreenDrawing();" of your Proscene instance to draw the title bar in 2D space.
+		 */
 		fullScreenController.draw(); // Call draw on FullScreenController (draws title bar)
 
 		// Mouse draw stroke test

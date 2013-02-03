@@ -7,7 +7,6 @@ import java.awt.Point;
 import processing.core.PApplet;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
-import processing.opengl.PGraphics3D;
 
 public class FullScreenController {
 	private PApplet p;
@@ -20,34 +19,21 @@ public class FullScreenController {
 	private int draggerAlpha;
 	private Point mouseDownCompCoords;
 
-	private PGraphics3D pg3d;
-	private int startCoordCalls;
-
 	public boolean isFullscreen;
 
-	public FullScreenController(PApplet $applet, char $triggerKey, int $draggerHeight, PGraphics3D $renderer) {
+	public FullScreenController(PApplet $applet, char $triggerKey, int $draggerHeight) {
 		p = $applet;
 		triggerKey = $triggerKey;
 		draggerHeight = $draggerHeight;
-		pg3d = $renderer;
 
 		isFullscreen = false;
 		isOverDragger = false;
 		isDragging = false;
 		draggerAlpha = 0;
-		startCoordCalls = 0;
 
 		p.registerMethod("keyEvent", this);
 		p.registerMethod("mouseEvent", this);
 		// p.registerMethod("draw", this);
-
-		// p.frame.removeNotify();
-		// p.frame.setResizable(true);
-		// p.frame.setUndecorated(true);
-		// p.frame.addNotify();
-	}
-	public FullScreenController(PApplet $applet, char $triggerKey, int $draggerHeight) {
-		this($applet, $triggerKey, $draggerHeight, (PGraphics3D) $applet.g);
 	}
 	public FullScreenController(PApplet $applet, char $triggerKey) {
 		this($applet, $triggerKey, 80);
@@ -60,8 +46,9 @@ public class FullScreenController {
 	// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	private void toggleFullscreen() {
 		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-		// DisplayMode newMode = new DisplayMode(frameSize[0], frameSize[1], 32, 0);
-		// println("full screen?" + gd.isFullScreenSupported());
+		// TODO: support for multiple screens ¬
+		// Get screen on which sketch is showing
+		// Set full screen on that screen
 
 		if(!isFullscreen) {
 			if(gd.isFullScreenSupported()) {
@@ -74,37 +61,6 @@ public class FullScreenController {
 		p.requestFocus(); // Let PApplet regain focus to receive events, …
 		isFullscreen = !isFullscreen;
 	}
-
-	// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// private void beginScreenDrawing() {
-	// // if(startCoordCalls != 0)
-	// // throw new RuntimeException("There should be exactly one beginScreenDrawing() call followed by a " + "endScreenDrawing() and they cannot be nested. Check your implementation!");
-	// // startCoordCalls++;
-	// // renderer().hint(PApplet.DISABLE_DEPTH_TEST);
-	// // renderer().pushProjection();
-	// // float cameraZ = (p.height / 2.0f) / PApplet.tan(p.camera().f / 2.0f);
-	// // float cameraNear = cameraZ / 2.0f;
-	// // float cameraFar = cameraZ * 2.0f;
-	// // renderer().ortho(0, p.width, 0, p.height, cameraNear, cameraFar);
-	// // renderer().pushMatrix();
-	// // renderer().camera();
-	// //
-	// // // zC = 0.0f;
-	// }
-	//
-	// private void endScreenDrawing() {
-	// // startCoordCalls--;
-	// // if(startCoordCalls != 0)
-	// // throw new RuntimeException("There should be exactly one beginScreenDrawing() call followed by a " + "endScreenDrawing() and they cannot be nested. Check your implementation!");
-	// // renderer().popProjection();
-	// // renderer().popMatrix();
-	// // renderer().hint(PApplet.ENABLE_DEPTH_TEST);
-	// }
-	//
-	// private PGraphics3D renderer() {
-	// return pg3d;
-	// }
 
 	// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -149,14 +105,12 @@ public class FullScreenController {
 	// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public void draw() {
 		if(!isFullscreen) {
-			// beginScreenDrawing();
 			p.pushStyle();
 			p.noStroke();
 			// p.fill(255, isOverDragger ? 255 : 0);
 			p.fill(255, draggerAlpha);
 			p.rect(0, 0, p.width, draggerHeight);
 			p.popStyle();
-			// endScreenDrawing();
 		}
 
 		if(isOverDragger && draggerAlpha < 255) {
@@ -168,14 +122,14 @@ public class FullScreenController {
 
 	// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	public static boolean pointInRectangle(Point $point, double $x, double $y, double $width, double $height) {
-		return (($point.x >= $x) && ($point.x <= $x + $width) && ($point.y >= $y) && ($point.y <= $y + $height));
-	}
-
 	public static void init(PApplet $p) {
 		$p.frame.removeNotify();
 		$p.frame.setResizable(true);
 		$p.frame.setUndecorated(true);
 		$p.frame.addNotify();
+	}
+
+	public static boolean pointInRectangle(Point $point, double $x, double $y, double $width, double $height) {
+		return (($point.x >= $x) && ($point.x <= $x + $width) && ($point.y >= $y) && ($point.y <= $y + $height));
 	}
 }
