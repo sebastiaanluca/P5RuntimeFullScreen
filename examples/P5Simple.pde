@@ -1,6 +1,6 @@
 import com.insomnia.controllers.FullScreenController;
 
-private FullScreenController fullScreenController;
+FullScreenController fullScreenController;
 
 void init() {
   FullScreenController.init(this); // Initialize FullScreenController (just sets your frame undecorated and resizable)
