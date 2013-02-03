@@ -1,1 +1,6 @@
 /libs
+
+/.classpath
+/.project
+/.settings/
+/bin/
